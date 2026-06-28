@@ -116,10 +116,10 @@ Dashboard akan terbuka di browser dengan parameter:
 ## Tampilan Streamlit
 
 ### Memasuki Streamlit
-![Screenschot tampilan awal](screenschot/tampilan_awal.png)
+![Screenschot tampilan awal](screenshot/tampilan_awal.png)
 
 ### Tampilan Hasil
-![Screenschot tampilan hasil](screenschot/tampilan_graf.png)
+![Screenschot tampilan hasil](screenshot/tampilan_graf.png)
 
 ---
 
