@@ -44,6 +44,15 @@ Untuk membentuk algoritma KNN, algoritma ini terbagi menjadi beberapa bagian, ya
 
 ---
 
+## Pembagian Data (Train-Test Split)
+
+Dalam program ini, data historis dibagi menjadi dua bagian berdasarkan urutan waktu (tidak diacak) untuk mensimulasikan kondisi prediksi nyata:
+- **80% data pertama** digunakan sebagai data latih (train set), menjadi basis perbandingan untuk mencari tetangga terdekat.
+- **20% data terakhir** digunakan sebagai data uji (test set), untuk mengukur performa model pada data yang belum pernah dilihat sebelumnya.
+
+Pembagian ini dilakukan setelah semua fitur dihitung, sehingga setiap hari yang valid (indeks ke-20 hingga terakhir) ikut serta dalam split.
+
+
 ## 📁 Struktur Folder
 
 ```
