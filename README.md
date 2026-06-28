@@ -47,7 +47,7 @@ Untuk membentuk algoritma KNN, algoritma ini terbagi menjadi beberapa bagian, ya
 ## 📁 Struktur Folder
 
 ```
-gold-knn/
+KNN-Gold-Prediction/
 │
 ├── app.py                  # Dashboard interaktif dengan Streamlit
 ├── main.py                 # Versi terminal (tanpa visualisasi)
@@ -73,8 +73,8 @@ gold-knn/
 ### 1. Clone / Download repositori
 
 ```bash
-git clone https://github.com/username/gold-knn.git
-cd gold-knn
+git clone https://github.com/midocristo/KNN-Gold-Prediction
+cd KNN-Gold-Prediction
 ```
 
 ### 2. Install dependensi
@@ -116,10 +116,10 @@ Dashboard akan terbuka di browser dengan parameter:
 ## Tampilan Streamlit
 
 ### Memasuki Streamlit
-![Screenschot tampilan awal](screenschot/tampilan_awal.png)
+![Screenschot tampilan awal](screenshot/tampilan_awal.png)
 
 ### Tampilan Hasil
-![Screenschot tampilan hasil](screenschot/tampilan_graf.png)
+![Screenschot tampilan hasil](screenshot/tampilan_graf.png)
 
 ---
 
