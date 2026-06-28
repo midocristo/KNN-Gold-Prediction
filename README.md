@@ -73,8 +73,8 @@ gold-knn/
 ### 1. Clone / Download repositori
 
 ```bash
-git clone https://github.com/username/gold-knn.git
-cd gold-knn
+git clone https://github.com/midocristo/KNN-Gold-Prediction
+cd KNN-Gold_Prediction
 ```
 
 ### 2. Install dependensi
