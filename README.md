@@ -62,7 +62,7 @@ KNN-Gold-Prediction/
     ├── fetch.py             # Ambil data dari Yahoo Finance dan menjadikannya CSV
     ├── features.py          # Hitung 5 fitur
     ├── knn.py               # Implementasi KNN
-    ├── evaluation.py          # Metrik evaluasi (akurasi, presisi, recall)
+    ├── evaluation.py        # Metrik evaluasi (akurasi, presisi, recall)
     └── normalize.py         # Normalisasi Min-Max
 ```
 
