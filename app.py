@@ -1,26 +1,53 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
-from datetime import datetime
+from datetime import datetime, date
+import yfinance as yf
 import src.features as ft
 import src.normalize as norm
 import src.knn as knn
 import src.evaluation as eval
-from datetime import datetime as dt
 
 st.set_page_config(page_title="Prediksi Emas KNN", layout="wide")
 st.title("Prediksi Arah Harga Emas Dengan Algoritma KNN")
 
+if "tanggal_mulai" not in st.session_state:
+    st.session_state.tanggal_mulai = datetime(2020, 1, 1)
+if "tanggal_akhir" not in st.session_state:
+    st.session_state.tanggal_akhir = datetime.today()
+
 st.sidebar.header("Atur Parameter")
-tanggal_mulai = st.sidebar.date_input("Tanggal Mulai", value=datetime(2020, 1, 1))
-tanggal_akhir = st.sidebar.date_input("Tanggal Akhir", value=datetime.today())
+tanggal_mulai = st.sidebar.date_input(
+    "Tanggal Mulai",
+    value=st.session_state.tanggal_mulai,
+    min_value=datetime(2015, 1, 1),
+    max_value=datetime.today(),
+    key="tanggal_mulai"
+)
+tanggal_akhir = st.sidebar.date_input(
+    "Tanggal Akhir",
+    value=st.session_state.tanggal_akhir,
+    min_value=datetime(2015, 1, 1),
+    max_value=datetime.today(),
+    key="tanggal_akhir"
+)
 K = st.sidebar.slider("Jumlah Tetangga (K)", 1, 15, 5, 2)
 tombol = st.sidebar.button("Jalankan Prediksi")
 
 @st.cache_data
 def baca_data():
-    data = ft.read_data("data/gold_data.csv")
-    return data
+    ticker = yf.Ticker("GC=F")
+    data_history = ticker.history(start="2015-01-01")
+    data_gold = []
+    for index, row in data_history.iterrows(): # type: ignore
+        data_gold.append({
+            "Date": str(index.date()), # type: ignore
+            "Open": float(row["Open"]), # type: ignore
+            "High": float(row["High"]), # type: ignore
+            "Low": float(row["Low"]), # type: ignore
+            "Close": float(row["Close"]) # type: ignore
+        })
+    return data_gold
 
 data_mentah = baca_data()
 
@@ -71,7 +98,7 @@ if tombol:
 
             awal_test = 20 + split
             akhir_test = awal_test + len(predictions)
-            test_tanggal = [dt.strptime(row["Date"], "%Y-%m-%d") for row in data_filtered[awal_test:akhir_test]]
+            test_tanggal = [datetime.strptime(row["Date"], "%Y-%m-%d") for row in data_filtered[awal_test:akhir_test]]
             test_close   = [row["Close"] for row in data_filtered[awal_test:akhir_test]]
 
             st.subheader("Harga Close & Sinyal Prediksi")
@@ -96,11 +123,11 @@ if tombol:
                            edgecolors="black", linewidth=0.8, zorder=5)
 
             legenda = [
-                Line2D([0], [0], marker="^", color="w", markerfacecolor="green",  markersize=12, label="Naik (benar) ✅"),
-                Line2D([0], [0], marker="^", color="w", markerfacecolor="red",    markersize=12, label="Naik (salah) ❌"),
-                Line2D([0], [0], marker="v", color="w", markerfacecolor="green",  markersize=12, label="Turun (benar) ✅"),
-                Line2D([0], [0], marker="v", color="w", markerfacecolor="red",    markersize=12, label="Turun (salah) ❌"),
-                Line2D([0], [0], color="blue", linewidth=2,                                      label="Harga Close"),
+                Line2D([0], [0], marker="^", color="w", markerfacecolor="green", markersize=12, label="Naik (benar) ✅"),
+                Line2D([0], [0], marker="^", color="w", markerfacecolor="red",   markersize=12, label="Naik (salah) ❌"),
+                Line2D([0], [0], marker="v", color="w", markerfacecolor="green", markersize=12, label="Turun (benar) ✅"),
+                Line2D([0], [0], marker="v", color="w", markerfacecolor="red",   markersize=12, label="Turun (salah) ❌"),
+                Line2D([0], [0], color="blue", linewidth=2,                                     label="Harga Close"),
             ]
             ax.legend(handles=legenda, loc="upper left")
             ax.set_xlabel("Tanggal")
